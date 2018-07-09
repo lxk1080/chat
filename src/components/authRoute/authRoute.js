@@ -6,6 +6,11 @@ import { withRouter } from 'react-router-dom';
 @withRouter
 export default class AuthRoute extends Component {
   componentDidMount() {
+    // 防止F5刷新再次请求
+    const list = ['/login', '/register', '/boss'];
+    if (list.includes(this.props.location.pathname)) {
+      return;
+    }
     // 获取用户信息
     axios.get('/user/info').then((res) => {
       if (res.status === 200) {

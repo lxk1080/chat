@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import Logo from '../../components/logo/logo';
 import { InputItem, WingBlank, WhiteSpace, Button } from 'antd-mobile';
+
+import Logo from '../../components/logo/logo';
 
 export default class Login extends Component {
   constructor(props) {
@@ -24,7 +25,7 @@ export default class Login extends Component {
           <WhiteSpace />
           <Button type="primary">登录</Button>
           <WhiteSpace />
-          <Button type="primary" onClick={this.register}>注册</Button>
+          <Button type="primary" onClick={this.register}>注册用户</Button>
         </WingBlank>
       </div>
     )
