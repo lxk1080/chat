@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
+import { Redirect } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import { List, InputItem, WingBlank, WhiteSpace, Radio, Button } from 'antd-mobile';
 
 import { register } from '../../actions/user';
+import * as utils from '../../common/js/utils';
 
 const mapStateToProps = state => ({
   userMeta: state.userMeta,
@@ -17,14 +18,20 @@ export default class Register extends Component {
     super(props);
 
     this.state = {
-      user: '',
-      pwd: '',
+      username: '',
+      password: '',
       repeatPwd: '',
-      type: 'jober',
+      type: 'worker',
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleReister = this.handleReister.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.userMeta.isAuth) {
+      this.props.history.push(utils.getRedirectPath(nextProps.userMeta));
+    }
   }
 
   handleChange(key, value) {
@@ -41,16 +48,16 @@ export default class Register extends Component {
     const RadioItem = Radio.RadioItem;
 
     return (
-      <div className="login">
+      <div className="register-wrapper">
         <Logo />
         <WingBlank>
-          <InputItem onChange={value => this.handleChange('user', value)}>用户名</InputItem>
-          <InputItem type="password" onChange={value => this.handleChange('pwd', value)}>密码</InputItem>
+          <InputItem onChange={value => this.handleChange('username', value)}>用户名</InputItem>
+          <InputItem type="password" onChange={value => this.handleChange('password', value)}>密码</InputItem>
           <InputItem type="password" onChange={value => this.handleChange('repeatPwd', value)}>确认密码</InputItem>
           <List renderHeader="请选择你的身份">
             <RadioItem
-              checked={this.state.type === 'jober'}
-              onChange={() => this.handleChange('type', 'jober')}
+              checked={this.state.type === 'worker'}
+              onChange={() => this.handleChange('type', 'worker')}
             >
               求职者
             </RadioItem>
@@ -63,10 +70,9 @@ export default class Register extends Component {
           </List>
           <WhiteSpace />
           <Button type="primary" onClick={this.handleReister}>注册</Button>
-          {
-            this.props.msg.registerErrorMsg ?
-              <div className="error-msg">{this.props.msg.registerErrorMsg}</div> : null
-          }
+          <div className="error-msg">
+            {this.props.msg.registerErrorMsg}
+          </div>
         </WingBlank>
       </div>
     )

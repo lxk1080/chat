@@ -5,28 +5,52 @@ import axios from 'axios';
 // ...爬坑
 import Qs from 'qs';
 import * as actionTypes from './actionTypes';
-import { REGISTER_ERROR_MSG } from './common';
+import { setRegisterErrorMsg, setLoginErrorMsg } from './common';
+
+export const loadUserMeta = data => ({type: actionTypes.LOAD_USERMETA, payload: data});
 
 export const registerSuccess = data => ({type: actionTypes.REGISTER_SUCCESS, payload: data});
 
-export const register = data => {
-  const { user, pwd, repeatPwd, type } = data;
+export const loginSuccess = data => ({type: actionTypes.LOGIN_SUCCESS, payload: data});
 
-  if (!user || !pwd || !repeatPwd || !type) {
-    return REGISTER_ERROR_MSG('请完成所有注册信息！');
-  }
+export const login = data => {
+  const { username, password } = data;
 
-  if (pwd !== repeatPwd) {
-    return REGISTER_ERROR_MSG('两次输入密码不一致！');
+  if (!username || !password) {
+    return setLoginErrorMsg('请完成所有登录信息！');
   }
 
   return dispatch => {
-    axios.post('/user/register', Qs.stringify({user, pwd, type})).then(res => {
+    axios.post('/user/login', Qs.stringify({username, password})).then(res => {
       if (res.status === 200 && res.data.code === 0) {
-        dispatch(registerSuccess({user, pwd, type}));
-        dispatch(REGISTER_ERROR_MSG(''));
+        const {username, type, avatar} = res.data.data;
+        dispatch(loginSuccess({username, type, avatar}));
+        dispatch(setLoginErrorMsg(''));
       } else {
-        dispatch(REGISTER_ERROR_MSG(res.data.msg));
+        dispatch(setLoginErrorMsg(res.data.msg));
+      }
+    })
+  }
+};
+
+export const register = data => {
+  const { username, password, repeatPwd, type } = data;
+
+  if (!username || !password || !repeatPwd || !type) {
+    return setRegisterErrorMsg('请完成所有注册信息！');
+  }
+
+  if (password !== repeatPwd) {
+    return setRegisterErrorMsg('两次输入密码不一致！');
+  }
+
+  return dispatch => {
+    axios.post('/user/register', Qs.stringify({username, password, type})).then(res => {
+      if (res.status === 200 && res.data.code === 0) {
+        dispatch(registerSuccess({username, type}));
+        dispatch(setRegisterErrorMsg(''));
+      } else {
+        dispatch(setRegisterErrorMsg(res.data.msg));
       }
     })
   }

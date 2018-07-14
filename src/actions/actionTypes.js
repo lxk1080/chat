@@ -1,2 +1,6 @@
+// 用户登录注册相关
+export const LOAD_USERMETA = 'LOAD_USERMETA';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
-export const REGISTER_ERROR_MSG = 'ERROR_MSG';
+export const SET_REGISTER_ERROR_MSG = 'REGISTER_ERROR_MSG';
+export const SET_LOGIN_ERROR_MSG = 'LOGIN_ERROR_MSG';

@@ -1,17 +1,67 @@
 const express = require('express');
+const Router = express.Router();
 
-const userRouter = express.Router();
+const utils = require('./utils');
 
-userRouter.get('/info', function (req, res) {
-  res.json({code: 1})
+const model = require('./model');
+const user = model.getModel('user');
+
+const _filter = {password: 0, _v: 0};
+
+// 清空数据库
+Router.get('/clear', function(req, res) {
+  user.remove({}, function() {});
+  res.end('clear success!');
+});
+// 获取所有表数据
+Router.get('/list', function(req, res) {
+  user.find({}, function(err, data) {
+    return res.json(data);
+  })
 });
 
-userRouter.post('/register', function (req, res) {
-  if (req.body.user === 'lxk') {
-    res.json({code: 0})
-  } else {
-    res.json({code: 1, msg: '用户名已注册！'})
+Router.get('/check', function(req, res) {
+  const { userId } = req.cookies;
+  if (!userId) {
+    return res.json({code: 1}); // 到login页面
   }
+  user.findOne({_id: userId}, _filter, function(err, data) {
+    if (!data) {
+      return res.json({code: 2, msg: '服务器错误，请重新登录！'});
+    }
+    return res.json({code: 0, data}); // 已登录，返回用户信息
+  })
 });
 
-module.exports = userRouter;
+Router.post('/login', function (req, res) {
+  const {username, password} = req.body;
+  // 第二个参数表示查询结果去除的字段
+  user.findOne({username, password: utils.pwdMD5(password)}, _filter, function(err, data) {
+    if (!data) {
+      return res.json({code: 1, msg: '用户名或密码错误！'});
+    }
+    // 客户端和服务器交流的一个标记
+    // 当然，这个标记是完全可以被窃取的
+    res.cookie('userId', data._id);
+    return res.json({code: 0, data});
+  })
+});
+
+
+Router.post('/register', function (req, res) {
+  const {username, password, type} = req.body;
+  user.findOne({username}, function(err, data) {
+    if (data) {
+      return res.json({code: 1, msg: '用户名已存在！'});
+    }
+    user.create({username, password: utils.pwdMD5(password), type}, function(err, data) {
+      if (err) {
+        return res.json({code: 1, msg: '服务器错误！'});
+      }
+      res.cookie('userId', data._id);
+      return res.json({code: 0});
+    })
+  })
+});
+
+module.exports = Router;
