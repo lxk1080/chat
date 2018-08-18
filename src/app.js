@@ -2,14 +2,14 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'; // 使组件变为路由组件，以包含history属性
-import * as utils from '../../common/js/utils';
-import { loadUserMeta } from '../../actions/user';
+import * as utils from './common/js/utils';
+import { loadUserMeta } from './actions/user';
 
 const mapStateToProps = state => ({});
 
 @withRouter
 @connect(mapStateToProps)
-export default class AuthRoute extends Component {
+export default class App extends Component {
   constructor(props) {
     super(props);
   }

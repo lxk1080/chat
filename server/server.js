@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const userRouter = require('./user');
+const fileRouter = require('./file');
 
 const app = express();
 
@@ -11,6 +12,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 
 app.use('/user', userRouter);
+app.use('/file', fileRouter);
 
 app.listen(9093, function () {
   console.log('listening at port 9093 ...')

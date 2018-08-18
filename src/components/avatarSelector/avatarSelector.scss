@@ -1,0 +1,35 @@
+.avatarSelector-container {
+  .avatar-wrapper {
+    .avatar {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      vertical-align: middle;
+    }
+    .text {
+      vertical-align: middle;
+      margin-left: 10px;
+    }
+  }
+
+  .image-wrapper {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    .image {
+      width: 99%;
+    }
+
+    .text {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      color: #ffffff;
+    }
+  }
+}

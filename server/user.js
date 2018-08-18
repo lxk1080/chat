@@ -1,12 +1,10 @@
 const express = require('express');
+const utils = require('./utils');
+const model = require('./model');
 const Router = express.Router();
 
-const utils = require('./utils');
-
-const model = require('./model');
 const user = model.getModel('user');
-
-const _filter = {password: 0, _v: 0};
+const _filter = {password: 0, __v: 0};
 
 // 清空数据库
 Router.get('/clear', function(req, res) {
@@ -50,6 +48,7 @@ Router.post('/login', function (req, res) {
 
 Router.post('/register', function (req, res) {
   const {username, password, type} = req.body;
+
   user.findOne({username}, function(err, data) {
     if (data) {
       return res.json({code: 1, msg: '用户名已存在！'});
@@ -58,6 +57,7 @@ Router.post('/register', function (req, res) {
       if (err) {
         return res.json({code: 1, msg: '服务器错误！'});
       }
+
       res.cookie('userId', data._id);
       return res.json({code: 0});
     })

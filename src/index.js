@@ -8,7 +8,8 @@ import { BrowserRouter, Route, Link, Switch, Redirect, withRouter } from 'react-
 import './common/js/config';
 import './common/css/index.scss';
 
-import AuthRoute from './containers/authRoute/authRoute';
+import App from './app';
+import Bossinfo from './containers/bossinfo/bossinfo';
 import Boss from './containers/boss/boss';
 import Login from './containers/login/login';
 import Register from './containers/register/register';
@@ -25,10 +26,10 @@ ReactDom.render(
     <BrowserRouter>
       <div>
         {/*根据获取的用户信息做跳转*/}
-        <AuthRoute/>
-
+        <App />
         <Route path='/login' component={Login}/>
         <Route path='/register' component={Register}/>
+        <Route path='/bossinfo' component={Bossinfo}/>
         <Route path='/boss' component={Boss}/>
       </div>
     </BrowserRouter>
