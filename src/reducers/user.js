@@ -9,13 +9,7 @@ const userMetaState = {
 
 export const userMeta = (state = userMetaState, action) => {
   switch(action.type) {
-    case actionTypes.LOAD_USERMETA:
-      return {...state, ...action.payload, isAuth: true};
-
-    case actionTypes.LOGIN_SUCCESS:
-      return {...state, ...action.payload, isAuth: true};
-
-    case actionTypes.REGISTER_SUCCESS:
+    case actionTypes.UPDATE_USER_INFO:
       return {...state, ...action.payload, isAuth: true};
 
     default:

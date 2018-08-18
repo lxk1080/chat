@@ -52,7 +52,7 @@ export default class Login extends Component {
         <Logo />
         <WingBlank>
           <InputItem onChange={value => this.handleChange('username', value)}>用户名</InputItem>
-          <InputItem onChange={value => this.handleChange('password', value)}>密码</InputItem>
+          <InputItem type="password" onChange={value => this.handleChange('password', value)}>密码</InputItem>
           <WhiteSpace />
           <WhiteSpace />
           <Button type="primary" onClick={this.login}>登录</Button>

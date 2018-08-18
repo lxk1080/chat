@@ -8,7 +8,7 @@ const _filter = {password: 0, __v: 0};
 
 // 清空数据库
 Router.get('/clear', function(req, res) {
-  user.remove({}, function() {});
+  user.remove({username: req.query.username}, function() {});
   res.end('clear success!');
 });
 // 获取所有表数据
@@ -60,6 +60,25 @@ Router.post('/register', function (req, res) {
 
       res.cookie('userId', data._id);
       return res.json({code: 0});
+    })
+  })
+});
+
+Router.post('/update', function (req, res) {
+  const { userId } = req.cookies;
+  const body = req.body;
+  if (!userId) {
+    return res.json({code: 1}); // 到login页面
+  }
+  // 通过id找到这条数据后修改
+  user.findByIdAndUpdate(userId, body, function(err, data) {
+    const result = Object.assign({}, {
+      username: data.username,
+      type: data.type,
+    }, body);
+    return res.json({
+      data: result,
+      code: 0,
     })
   })
 });

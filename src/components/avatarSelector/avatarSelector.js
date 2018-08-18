@@ -23,7 +23,7 @@ export default class AvatarSelector extends Component {
     this.getHeader = this.getHeader.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.getAllImage();
   }
 
@@ -53,6 +53,12 @@ export default class AvatarSelector extends Component {
   render() {
     const { imgLists } = this.state;
 
+    // 默认底图
+    const tmp = Array.from(new Array(20)).map((_val, _i) => ({
+      icon: 'https://gw.alipayobjects.com/zos/rmsportal/nywPmnTAvTmLusPxHPSu.png',
+      text: _i,
+    }));
+
     const data = imgLists.map((name, i) => ({
       icon: require(`../../common/image/${name}.jpg`),
       text: name,
@@ -60,14 +66,13 @@ export default class AvatarSelector extends Component {
 
     return (
       <div className="avatarSelector-container">
-        <List renderHeader={(this.getHeader())}>
+        <List renderHeader={this.getHeader()}>
           {
-            data.length > 0 &&
             <Grid
-              data={data}
-              activeStyle={true} // 点击反馈的自定义样式
-              columnNum={4} // 列数
+              data={data.length > 0 ? data : tmp}
               isCarousel={true} // 是否跑马灯
+              activeStyle={true} // 点击反馈的样式
+              columnNum={4} // 列数
               carouselMaxRow={2} // 如果是跑马灯, 一页跑马灯需要展示的行数
               hasLine={false} // 是否有边框
               renderItem={ // 自定义每个 grid 条目的创建函数

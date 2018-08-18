@@ -7,11 +7,7 @@ import Qs from 'qs';
 import * as actionTypes from './actionTypes';
 import { setRegisterErrorMsg, setLoginErrorMsg } from './common';
 
-export const loadUserMeta = data => ({type: actionTypes.LOAD_USERMETA, payload: data});
-
-export const registerSuccess = data => ({type: actionTypes.REGISTER_SUCCESS, payload: data});
-
-export const loginSuccess = data => ({type: actionTypes.LOGIN_SUCCESS, payload: data});
+export const updateUserInfo = data => ({type: actionTypes.UPDATE_USER_INFO, payload: data});
 
 export const login = data => {
   const { username, password } = data;
@@ -24,7 +20,7 @@ export const login = data => {
     axios.post('/user/login', Qs.stringify({username, password})).then(res => {
       if (res.status === 200 && res.data.code === 0) {
         const {username, type, avatar} = res.data.data;
-        dispatch(loginSuccess({username, type, avatar}));
+        dispatch(updateUserInfo({username, type, avatar}));
         dispatch(setLoginErrorMsg(''));
       } else {
         dispatch(setLoginErrorMsg(res.data.msg));
@@ -47,11 +43,23 @@ export const register = data => {
   return dispatch => {
     axios.post('/user/register', Qs.stringify({username, password, type})).then(res => {
       if (res.status === 200 && res.data.code === 0) {
-        dispatch(registerSuccess({username, type}));
+        dispatch(updateUserInfo({username, type}));
         dispatch(setRegisterErrorMsg(''));
       } else {
         dispatch(setRegisterErrorMsg(res.data.msg));
       }
     })
   }
+};
+
+export const save = data => dispatch => {
+  axios.post('/user/update', Qs.stringify(data)).then(res => {
+    if (res.status === 200) {
+      if (res.data.code === 0) {
+        dispatch(updateUserInfo(res.data.data));
+      } else {
+        this.props.history.push('/login');
+      }
+    }
+  })
 };
