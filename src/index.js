@@ -11,6 +11,8 @@ import './common/css/index.scss';
 import App from './app';
 import Bossinfo from './containers/bossinfo/bossinfo';
 import Boss from './containers/boss/boss';
+import Workerinfo from './containers/workerinfo/workerinfo';
+import Worker from './containers/worker/worker';
 import Login from './containers/login/login';
 import Register from './containers/register/register';
 
@@ -31,6 +33,8 @@ ReactDom.render(
         <Route path='/register' component={Register}/>
         <Route path='/bossinfo' component={Bossinfo}/>
         <Route path='/boss' component={Boss}/>
+        <Route path='/workerinfo' component={Workerinfo}/>
+        <Route path='/worker' component={Worker}/>
       </div>
     </BrowserRouter>
   </Provider>),
