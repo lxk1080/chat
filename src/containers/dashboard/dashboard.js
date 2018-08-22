@@ -53,12 +53,17 @@ export default class Dashboard extends Component {
         icon: 'user',
       },
     ];
+	
+	const { pathname } = this.props.location;
+	
+	if (pathname === '/') {
+	  this.props.history.push('/login');
+	  return null;
+	}
 
-    const title = navList.find(item => item.path === this.props.location.pathname).title;
+    const title = navList.find(item => item.path === pathname).title;
 
     const tabList = navList.filter(item => !item.hide);
-
-    const { pathname } = this.props.location;
 
     return (
       <div className="dashboard-container">
