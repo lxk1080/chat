@@ -9,12 +9,11 @@ import './common/js/config';
 import './common/css/index.scss';
 
 import App from './app';
-import Bossinfo from './containers/bossinfo/bossinfo';
-import Boss from './containers/boss/boss';
-import Workerinfo from './containers/workerinfo/workerinfo';
-import Worker from './containers/worker/worker';
 import Login from './containers/login/login';
 import Register from './containers/register/register';
+import Bossinfo from './containers/bossinfo/bossinfo';
+import Workerinfo from './containers/workerinfo/workerinfo';
+import Dashboard from './containers/dashboard/dashboard';
 
 import reducers from './reducers';
 
@@ -29,12 +28,13 @@ ReactDom.render(
       <div>
         {/*根据获取的用户信息做跳转*/}
         <App />
-        <Route path='/login' component={Login}/>
-        <Route path='/register' component={Register}/>
-        <Route path='/bossinfo' component={Bossinfo}/>
-        <Route path='/boss' component={Boss}/>
-        <Route path='/workerinfo' component={Workerinfo}/>
-        <Route path='/worker' component={Worker}/>
+        <Switch>
+          <Route path='/login' component={Login}/>
+          <Route path='/register' component={Register}/>
+          <Route path='/bossinfo' component={Bossinfo}/>
+          <Route path='/workerinfo' component={Workerinfo}/>
+          <Route component={Dashboard} />
+        </Switch>
       </div>
     </BrowserRouter>
   </Provider>),
