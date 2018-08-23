@@ -33,6 +33,7 @@ ReactDom.render(
           <Route path='/register' component={Register}/>
           <Route path='/bossinfo' component={Bossinfo}/>
           <Route path='/workerinfo' component={Workerinfo}/>
+          <Redirect from="/" to="/login" />
           <Route component={Dashboard} />
         </Switch>
       </div>

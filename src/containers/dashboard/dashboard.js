@@ -9,10 +9,17 @@ const mapstateToProps = state => ({
   userMeta: state.userMeta,
 });
 
-function Boss(){}
-function Worker(){}
-function Msg(){}
-function User(){}
+function Boss() {
+}
+
+function Worker() {
+}
+
+function Msg() {
+}
+
+function User() {
+}
 
 @connect(mapstateToProps)
 export default class Dashboard extends Component {
@@ -53,14 +60,8 @@ export default class Dashboard extends Component {
         icon: 'user',
       },
     ];
-	
-	const { pathname } = this.props.location;
-	
-	if (pathname === '/') {
-	  this.props.history.push('/login');
-	  return null;
-	}
 
+    const { pathname } = this.props.location;
     const title = navList.find(item => item.path === pathname).title;
 
     const tabList = navList.filter(item => !item.hide);
@@ -79,19 +80,19 @@ export default class Dashboard extends Component {
           <TabBar>
             {
               tabList.map(item => (
-                  <TabBar.Item
-                    key={item.path}
-                    title={item.text}
-                    icon={{uri: require(`../../common/icon/${item.icon}.png`)}}
-                    selectedIcon={{uri: require(`../../common/icon/${item.icon}-active.png`)}}
-                    selected={item.path === pathname}
-                    onPress={() => {
-                      this.props.history.push(item.path)
-                    }}
-                  >
-                  </TabBar.Item>
-                )
-              )}
+                <TabBar.Item
+                  key={item.path}
+                  title={item.text}
+                  icon={{uri: require(`../../common/icon/${item.icon}.png`)}}
+                  selectedIcon={{uri: require(`../../common/icon/${item.icon}-active.png`)}}
+                  selected={item.path === pathname}
+                  onPress={() => {
+                    this.props.history.push(item.path)
+                  }}
+                >
+                </TabBar.Item>
+              )
+            )}
           </TabBar>
         </div>
       </div>
