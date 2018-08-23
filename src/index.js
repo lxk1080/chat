@@ -29,11 +29,11 @@ ReactDom.render(
         {/*根据获取的用户信息做跳转*/}
         <App />
         <Switch>
+          <Redirect from="/" exact to="/login" />
           <Route path='/login' component={Login}/>
           <Route path='/register' component={Register}/>
           <Route path='/bossinfo' component={Bossinfo}/>
           <Route path='/workerinfo' component={Workerinfo}/>
-          <Redirect from="/" to="/login" />
           <Route component={Dashboard} />
         </Switch>
       </div>
