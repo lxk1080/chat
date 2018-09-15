@@ -7,7 +7,7 @@ import { login } from '../../actions/user';
 import * as utils from '../../common/js/utils';
 
 const mapStateToProps = state => ({
-  userMeta: state.userMeta,
+  userInfo: state.userInfo,
   msg: state.msg,
 });
 
@@ -27,8 +27,8 @@ export default class Login extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.userMeta.isAuth) {
-      this.props.history.push(utils.getRedirectPath(nextProps.userMeta));
+    if (nextProps.userInfo.isAuth) {
+      this.props.history.push(utils.getRedirectPath(nextProps.userInfo));
     }
   }
 

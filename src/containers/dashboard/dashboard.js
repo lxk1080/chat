@@ -1,25 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Route, Switch } from 'react-router-dom';
 import { NavBar, TabBar } from 'antd-mobile';
-
+import Boss from '../boss/boss';
+import Worker from '../worker/worker';
 import './dashboard.scss';
 
-const mapstateToProps = state => ({
-  userMeta: state.userMeta,
-});
-
-function Boss() {
-}
-
-function Worker() {
-}
-
 function Msg() {
+  return <div>msg</div>
 }
 
 function User() {
+  return <div>user</div>
 }
+
+const mapstateToProps = state => ({
+  userInfo: state.userInfo,
+});
 
 @connect(mapstateToProps)
 export default class Dashboard extends Component {
@@ -35,7 +33,7 @@ export default class Dashboard extends Component {
         text: 'worker',
         title: 'worker列表',
         icon: 'boss',
-        hide: this.props.userMeta.type === 'worker'
+        hide: this.props.userInfo.type === 'worker'
       },
       {
         path: '/worker',
@@ -43,7 +41,7 @@ export default class Dashboard extends Component {
         text: 'boss',
         title: 'boss列表',
         icon: 'worker',
-        hide: this.props.userMeta.type === 'boss'
+        hide: this.props.userInfo.type === 'boss'
       },
       {
         path: '/msg',
@@ -71,11 +69,15 @@ export default class Dashboard extends Component {
         <div className="header">
           <NavBar className="title">{title}</NavBar>
         </div>
-
         <div className="content">
-
+          <Switch>
+            {
+              tabList.map((item, index) => {
+                return <Route key={index} path={item.path} component={item.component} />
+              })
+            }
+          </Switch>
         </div>
-
         <div className="footer">
           <TabBar>
             {

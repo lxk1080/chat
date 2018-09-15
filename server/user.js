@@ -11,10 +11,15 @@ Router.get('/clear', function(req, res) {
   user.remove({username: req.query.username}, function() {});
   res.end('clear success!');
 });
-// 获取所有表数据
+
 Router.get('/list', function(req, res) {
-  user.find({}, function(err, data) {
-    return res.json(data);
+  const { type } = req.query;
+
+  user.find({type}, function(err, data) {
+    return res.json({
+      code: 0,
+      data,
+    });
   })
 });
 

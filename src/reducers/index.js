@@ -3,6 +3,7 @@ import * as user from './user';
 import * as common from './common';
 
 export default combineReducers({
-  userMeta: user.userMeta,
+  userInfo: user.userInfo,
+  chatUser: user.chatUser,
   msg: common.msg,
 });

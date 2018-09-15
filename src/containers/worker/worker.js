@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { InputItem, WingBlank, WhiteSpace, Button } from 'antd-mobile';
+import { getUserList } from '../../apis/user';
+import { changeUserList } from '../../actions/user';
+import UserCard from '../../components/userCard/userCard';
 
 const mapStateToProps = state => ({
-
+  chatUser: state.chatUser,
 });
 
 @connect(mapStateToProps)
@@ -12,10 +14,20 @@ export default class Boss extends Component {
     super(props);
   }
 
+  componentDidMount() {
+    getUserList('boss').then(res => {
+      if (res.code === 0) {
+        this.props.dispatch(changeUserList(res.data));
+      }
+    })
+  }
+
   render() {
+    const { chatUser } = this.props;
+
     return (
       <div className="boss-wrapper">
-        Worker
+        <UserCard type="boss" userList={chatUser.userList} />
       </div>
     )
   }
