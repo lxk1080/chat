@@ -16,8 +16,7 @@ export const login = data => {
   return dispatch => {
     userApi.login(username, password).then(res => {
       if (res.code === 0) {
-        const {username, type, avatar} = res.data;
-        dispatch(updateUserInfo({username, type, avatar}));
+        dispatch(updateUserInfo(res.data));
         dispatch(setLoginErrorMsg(''));
       } else {
         dispatch(setLoginErrorMsg(res.msg));

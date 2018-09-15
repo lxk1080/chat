@@ -25,8 +25,6 @@ export default class Boss extends Component {
   render() {
     const { chatUser } = this.props;
 
-    console.log(chatUser.userList);
-
     return (
       <div className="boss-wrapper">
         <UserCard type="worker" userList={chatUser.userList} />

@@ -5,15 +5,13 @@ import { Route, Switch } from 'react-router-dom';
 import { NavBar, TabBar } from 'antd-mobile';
 import Boss from '../boss/boss';
 import Worker from '../worker/worker';
+import User from '../user/user';
 import './dashboard.scss';
 
 function Msg() {
   return <div>msg</div>
 }
 
-function User() {
-  return <div>user</div>
-}
 
 const mapstateToProps = state => ({
   userInfo: state.userInfo,
