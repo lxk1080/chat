@@ -24,6 +24,7 @@ export default class Login extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.login = this.login.bind(this);
     this.toRegister = this.toRegister.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -46,9 +47,15 @@ export default class Login extends Component {
     this.props.history.push('/register');
   }
 
+  onKeyDown(e) {
+    if (e.keyCode === 13) {
+      this.login();
+    }
+  }
+
   render() {
     return (
-      <div className="login-wrapper">
+      <div className="login-wrapper" onKeyDown={this.onKeyDown}>
         <Logo />
         <WingBlank>
           <InputItem onChange={value => this.handleChange('username', value)}>用户名</InputItem>

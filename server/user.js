@@ -6,7 +6,7 @@ const Router = express.Router();
 const user = model.getModel('user');
 const _filter = {password: 0, __v: 0};
 
-// 清空数据库
+// 清理数据库
 Router.get('/clear', function(req, res) {
   user.remove({username: req.query.username}, function() {});
   res.end('clear success!');
