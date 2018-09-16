@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { InputItem, WingBlank, WhiteSpace, Button } from 'antd-mobile';
 
 import Logo from '../../components/logo/logo';
+import formHandler from '../../components/high-order-components/formHandler';
 import { login } from '../../actions/user';
 import * as utils from '../../common/js/utils';
 
@@ -11,6 +12,7 @@ const mapStateToProps = state => ({
   msg: state.msg,
 });
 
+@formHandler
 @connect(mapStateToProps)
 export default class Login extends Component {
   constructor(props) {
@@ -34,9 +36,7 @@ export default class Login extends Component {
   }
 
   handleChange(key, value) {
-    this.setState({
-      [key]: value,
-    })
+    this.props.handleChange(this, key, value);
   }
 
   login() {

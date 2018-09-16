@@ -6,12 +6,14 @@ import { List, InputItem, WingBlank, WhiteSpace, Radio, Button } from 'antd-mobi
 
 import { register } from '../../actions/user';
 import * as utils from '../../common/js/utils';
+import formHandler from '../../components/high-order-components/formHandler';
 
 const mapStateToProps = state => ({
   userInfo: state.userInfo,
   msg: state.msg,
 });
 
+@formHandler
 @connect(mapStateToProps)
 export default class Register extends Component {
   constructor(props) {
@@ -35,9 +37,7 @@ export default class Register extends Component {
   }
 
   handleChange(key, value) {
-    this.setState({
-      [key]: value,
-    })
+    this.props.handleChange(this, key, value);
   }
 
   handleReister() {
