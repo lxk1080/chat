@@ -16,6 +16,9 @@ export const userInfo = (state = initUserInfo, action) => {
     case actionTypes.UPDATE_USER_INFO:
       return {...state, ...action.payload, isAuth: true};
 
+    case actionTypes.LOGOUT:
+      return {...initUserInfo};
+
     default:
       return state;
   }

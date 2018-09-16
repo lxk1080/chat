@@ -6,6 +6,8 @@ export const updateUserInfo = data => ({type: actionTypes.UPDATE_USER_INFO, payl
 
 export const changeUserList = data => ({type: actionTypes.CHANGE_USER_LIST, payload: data});
 
+export const logout = data => ({type: actionTypes.LOGOUT, payload: data});
+
 export const login = data => {
   const { username, password } = data;
 

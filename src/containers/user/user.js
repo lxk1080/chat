@@ -1,6 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Result, List, WhiteSpace, WingBlank } from 'antd-mobile';
+import { Result, List, WhiteSpace, WingBlank, Modal } from 'antd-mobile';
+import Cookies from 'js-cookie';
+import { logout } from '../../actions/user';
+import { Redirect } from 'react-router-dom';
 
 const mapStateToProps = state => ({
   userInfo: state.userInfo,
@@ -9,7 +12,27 @@ const mapStateToProps = state => ({
 @connect(mapStateToProps)
 export default class User extends Component {
   constructor(props) {
-    super(props)
+    super(props);
+
+    this.logout = this.logout.bind(this);
+  }
+
+  logout() {
+    const { dispatch, history } = this.props;
+
+    Modal.alert('注销', '确认退出登录吗？', [
+      {
+        text: '取消',
+        onPress: () => console.log('cancel'),
+      },
+      {
+        text: '确认',
+        onPress: () => {
+          Cookies.remove('userId'); // 清除cookie
+          dispatch(logout()); // 清除redux内的用户信息
+        }
+      }
+    ])
   }
 
   render() {
@@ -50,10 +73,10 @@ export default class User extends Component {
               </List>
               <WhiteSpace />
               <List>
-                <Item>退出登录</Item>
+                <Item onClick={this.logout}>退出登录</Item>
               </List>
             </Fragment>
-          ) : null
+          ) : <Redirect to='/login' />
         }
       </div>
     )
