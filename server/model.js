@@ -12,21 +12,26 @@ mongoose.connection.on('connected', function() {
 // 建表
 const models = {
   user: {
-    username: {type: 'string', require: true},
-    password: {type: 'string', require: true},
-    type: {type: 'string', require: true},
+    username: {type: String, require: true},
+    password: {type: String, require: true},
+    type: {type: String, require: true},
     // 头像
-    avatar: {type: 'string'},
+    avatar: {type: String},
     // 个人简介或职位介绍
-    desc: {type: 'string'},
+    desc: {type: String},
     // 职位名
-    title: {type: 'string', require: true},
+    title: {type: String, require: true},
     // boss
-    company: {type: 'string'},
-    money: {type: 'string'},
+    company: {type: String},
+    money: {type: String},
   },
   chat: {
-
+    chatid: {type: String, require: true},
+    from: {type: String, require: true},
+    to: {type: String, require: true},
+    content: {type: String, require: true, default: ''},
+    read: {type: Boolean, default: false},
+    create_time: {type: Number, default: new Date().getTime()},
   }
 };
 

@@ -1,7 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import { WingBlank, WhiteSpace, Card } from 'antd-mobile';
 
+@withRouter
 export default class Boss extends Component {
   static propTypes = {
     userList: PropTypes.array.isRequired,
@@ -10,6 +12,12 @@ export default class Boss extends Component {
 
   constructor(props) {
     super(props);
+
+    this.onClick = this.onClick.bind(this);
+  }
+
+  onClick(id) {
+    this.props.history.push(`/chat/${id}`);
   }
 
   render() {
@@ -26,7 +34,7 @@ export default class Boss extends Component {
               user.avatar ? (
                 <Fragment key={index}>
                   <WhiteSpace />
-                  <Card>
+                  <Card onClick={() => this.onClick(user._id)}>
                     <Card.Header
                       title={user.username}
                       thumb={require(`../../common/image/${user.avatar}.jpg`)}

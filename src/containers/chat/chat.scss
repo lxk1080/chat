@@ -1,0 +1,22 @@
+.chat-wrapper {
+  .content {
+    position: absolute;
+    top: 45px;
+    bottom: 44px;
+    width: 100%;
+    overflow: auto;
+
+    .me {
+      .am-list-content {
+        text-align: right;
+      }
+    }
+  }
+
+  .footer {
+    position: absolute;
+    bottom: 0;
+    height: 44px;
+    width: 100%;
+  }
+}

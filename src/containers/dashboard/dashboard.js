@@ -12,7 +12,6 @@ function Msg() {
   return <div>msg</div>
 }
 
-
 const mapstateToProps = state => ({
   userInfo: state.userInfo,
 });
