@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { NavBar, TabBar } from 'antd-mobile';
+import { socket } from '../../common/js/constants';
+import { setMsgList, receiveMsg } from '../../actions/chat';
+import { getMsgList } from '../../apis/chat';
 import Boss from '../boss/boss';
 import Worker from '../worker/worker';
 import User from '../user/user';
@@ -14,15 +17,34 @@ function Msg() {
 
 const mapstateToProps = state => ({
   userInfo: state.userInfo,
+  chatMsg: state.chatMsg,
 });
 
 @connect(mapstateToProps)
 export default class Dashboard extends Component {
   constructor(props) {
-    super(props)
+    super(props);
+
+    this.getTabList = this.getTabList.bind(this);
   }
 
-  render() {
+  componentDidMount() {
+    getMsgList().then(res => {
+      if (res.code === 0) {
+        this.props.dispatch(setMsgList({data: res.data, userId: this.props.userInfo._id}));
+      }
+    });
+
+    // 这里先解绑上次绑定的，否则会多次绑定reply事件，执行多次回调函数
+    // 至于为什么不在组件销毁时解绑，是因为此组件销毁时，仍然需要监听这个事件
+    socket.off('reply');
+
+    socket.on('reply', (data) => {
+      this.props.dispatch(receiveMsg({data, userId: this.props.userInfo._id}));
+    })
+  }
+
+  getTabList(userInfo) {
     const navList = [
       {
         path: '/boss',
@@ -30,7 +52,7 @@ export default class Dashboard extends Component {
         text: 'worker',
         title: 'worker列表',
         icon: 'boss',
-        hide: this.props.userInfo.type === 'worker'
+        hide: userInfo.type === 'worker'
       },
       {
         path: '/worker',
@@ -38,7 +60,7 @@ export default class Dashboard extends Component {
         text: 'boss',
         title: 'boss列表',
         icon: 'worker',
-        hide: this.props.userInfo.type === 'boss'
+        hide: userInfo.type === 'boss'
       },
       {
         path: '/msg',
@@ -56,10 +78,14 @@ export default class Dashboard extends Component {
       },
     ];
 
-    const { pathname } = this.props.location;
-    const title = navList.find(item => item.path === pathname).title;
+    return navList.filter(item => !item.hide);
+  }
 
-    const tabList = navList.filter(item => !item.hide);
+  render() {
+    const { location, userInfo, chatMsg } = this.props;
+
+    const tabList = this.getTabList(userInfo);
+    const title = tabList.find(item => item.path === location.pathname).title;
 
     return (
       <div className="dashboard-container">
@@ -80,11 +106,12 @@ export default class Dashboard extends Component {
             {
               tabList.map(item => (
                 <TabBar.Item
+                  badge={item.path === '/msg' ? chatMsg.unread: 0}
                   key={item.path}
                   title={item.text}
                   icon={{uri: require(`../../common/icon/${item.icon}.png`)}}
                   selectedIcon={{uri: require(`../../common/icon/${item.icon}-active.png`)}}
-                  selected={item.path === pathname}
+                  selected={item.path === location.pathname}
                   onPress={() => {
                     this.props.history.push(item.path)
                   }}

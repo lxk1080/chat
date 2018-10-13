@@ -15,7 +15,7 @@ export const login = data => {
     return setLoginErrorMsg('请完成所有登录信息！');
   }
 
-  return dispatch => {
+  return (dispatch, getState) => {
     userApi.login(username, password).then(res => {
       if (res.code === 0) {
         dispatch(updateUserInfo(res.data));

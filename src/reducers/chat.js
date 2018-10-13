@@ -6,12 +6,14 @@ const initChatMsg = {
 };
 
 export const chatMsg = (state = initChatMsg, action) => {
+  const { data, userId } = action.payload || {};
+
   switch (action.type) {
     case actionTypes.SET_MSG_LIST:
-      return {...state, msgList: action.payload, unread: action.payload.filter(msg => !msg.read).length};
+      return {...state, msgList: data, unread: data.filter(msg => !msg.read && msg.to === userId).length};
 
     case actionTypes.RECEIVE_MSG:
-      return {...state, msgList: [...state.msgList, action.payload], unread: state.unread + 1};
+      return {...state, msgList: [...state.msgList, data], unread: data.to === userId ? state.unread + 1 : state.unread};
 
     case actionTypes.SET_MSG_READ_STATE:
 

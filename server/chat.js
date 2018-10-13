@@ -4,9 +4,9 @@ const model = require('./model');
 const Chat = model.getModel('chat');
 
 Router.get('/getMsgList', function(req, res) {
-  // const user = req.cookies.userId;
+  const user = req.cookies.userId;
 
-  Chat.find({}, function(err, data) {
+  Chat.find({'$or': [{from: user}, {to: user}]}, function(err, data) {
     if (!err) {
       return res.json({
         code: 0,
