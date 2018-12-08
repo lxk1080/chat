@@ -1,3 +1,5 @@
+$content-background: #e8e8e8;
+
 .chat-wrapper {
   display: flex;
   flex-direction: column;
@@ -7,13 +9,14 @@
   .content {
     flex: 1;
     width: 100%;
+    background-color: $content-background;
     overflow: auto;
 
     .text-box {
       position: relative;
       display: inline-block;
       padding: 4px 10px;
-      max-width: 200px;
+      max-width: 76%;
       border-radius: 4px;
       white-space: initial;
       text-align: left;
@@ -61,7 +64,12 @@
         position: static;
 
         .am-list-item {
-          background-color: #e8e8e8; // 这个是整个content区域的背景
+          align-items: initial;
+          background-color: $content-background;
+
+          .am-list-thumb {
+            padding: 7px 0;
+          }
         }
 
         .me {
@@ -70,7 +78,7 @@
           }
 
           .am-list-extra {
-            flex-basis: 14%; // 发送方信息与头像之间的距离
+            flex-basis: 40px; // 可以控制发送方信息与头像之间的距离，实际上是头像外层盒子的宽度
           }
         }
 
@@ -112,6 +120,7 @@
 
         input {
           padding-left: 2px;
+          height: 26px;
           font-size: 14px;
         }
       }
