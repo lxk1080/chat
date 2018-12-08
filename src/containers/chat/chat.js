@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { List, InputItem, NavBar, Icon } from 'antd-mobile';
+import { List, InputItem, NavBar, Icon, Grid } from 'antd-mobile';
 import { socket } from '../../common/js/constants';
 import { getChatId } from '../../common/js/utils';
+import emoji from '../../common/js/emoji';
 // import { setMsgList, receiveMsg } from '../../actions/chat';
 // import { getMsgList } from '../../apis/chat';
 import './chat.scss';
@@ -18,14 +19,20 @@ export default class Chat extends Component {
   constructor(props) {
     super(props);
 
+    // 获取emoji表情
+    this.emojis = emoji.expression.map(item => ({icon: '', text: item.text}));
+
     this.state = {
       text: '',
+      showEmoji: false,
     };
 
     this.onChange = this.onChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.fixCarousel = this.fixCarousel.bind(this);
     this.setScroll = this.setScroll.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
+    this.toggleEmojiShow = this.toggleEmojiShow.bind(this);
   }
 
   componentDidMount() {
@@ -40,6 +47,7 @@ export default class Chat extends Component {
     })*/
 
     this.setScroll();
+    this.fixCarousel();
   }
 
   componentDidUpdate() {
@@ -53,6 +61,13 @@ export default class Chat extends Component {
     }
   }
 
+  fixCarousel() {
+    // 解决antd-nobile的Grid组件的bug
+    setTimeout(() => {
+      window.dispatchEvent(new Event('resize'));
+    }, 0);
+  }
+
   onChange(value) {
     this.setState({
       text: value,
@@ -64,7 +79,9 @@ export default class Chat extends Component {
     const to = this.props.match.params.id;
     const content = this.state.text;
 
-    socket.emit('send', {from, to, content});
+    if (content) {
+      socket.emit('send', {from, to, content});
+    }
 
     this.setState({
       text: '',
@@ -77,8 +94,23 @@ export default class Chat extends Component {
     }
   }
 
+  toggleEmojiShow() {
+    this.setState({
+      showEmoji: !this.state.showEmoji,
+    }, () => {
+      this.fixCarousel();
+    })
+  }
+
+  addToText(emoji) {
+    this.setState({
+      text: this.state.text + emoji.text,
+    });
+    this.input.focus();
+  }
+
   render() {
-    const { text } = this.state;
+    const { text, showEmoji } = this.state;
     const { userInfo, chatMsg, chatUser, match } = this.props;
 
     // 获得对方的信息
@@ -113,11 +145,19 @@ export default class Chat extends Component {
               currentChatMsg.map(msg => {
                 return msg.from === toUser._id ? (
                   <List key={msg._id}>
-                    <List.Item thumb={toAvatar}>{msg.content}</List.Item>
+                    <List.Item thumb={toAvatar}>
+                      <span className="text-box to">
+                        {msg.content}
+                      </span>
+                    </List.Item>
                   </List>
                 ) : (
                   <List key={msg._id}>
-                    <List.Item className="me" extra={<img src={meAvatar} />}>{msg.content}</List.Item>
+                    <List.Item className="me" extra={<img src={meAvatar} />}>
+                      <span className="text-box from">
+                        {msg.content}
+                      </span>
+                    </List.Item>
                   </List>
                 )
               })
@@ -127,13 +167,29 @@ export default class Chat extends Component {
         <div className="footer">
           <List>
             <InputItem
+              ref={el => this.input = el}
               placeholder="请输入信息"
               value={text}
               onChange={this.onChange}
               onKeyDown={this.onKeyDown}
-              extra={<span onClick={this.handleSubmit}>发送</span>}
+              extra={(
+                <div>
+                  <span style={{ marginRight: '10px' }} onClick={this.toggleEmojiShow}>☺</span>
+                  <span onClick={this.handleSubmit}>发送</span>
+                </div>
+              )}
             />
           </List>
+          {
+            showEmoji &&
+            <Grid
+              data={this.emojis}
+              columnNum={8}
+              carouselMaxRow={4}
+              isCarousel={true}
+              onClick={v => this.addToText(v)}
+            />
+          }
         </div>
       </div>
     )

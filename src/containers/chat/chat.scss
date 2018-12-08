@@ -1,19 +1,68 @@
 .chat-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+
   .content {
-    position: absolute;
-    top: 45px;
-    bottom: 48px;
+    flex: 1;
     width: 100%;
     overflow: auto;
-    background: #fff;
+
+    .text-box {
+      position: relative;
+      display: inline-block;
+      padding: 4px 10px;
+      max-width: 200px;
+      border-radius: 4px;
+      white-space: initial;
+      text-align: left;
+      letter-spacing: 1px;
+
+      &.to {
+        background-color: #ffffff;
+
+        &::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 8px;
+          transform: translate3d(-100%, 0, 0);
+          border-color: transparent #ffffff transparent transparent;
+          border-width: 6px;
+          border-style: solid;
+        }
+      }
+
+      &.from {
+        background-color: lightgreen;
+
+        &::before {
+          content: '';
+          position: absolute;
+          right: 0;
+          top: 8px;
+          transform: translate3d(100%, 0, 0);
+          border-color: transparent transparent transparent lightgreen;
+          border-width: 6px;
+          border-style: solid;
+        }
+      }
+    }
 
     .am-list {
       img {
-        border-radius: 50%;
+        border-radius: 2px;
+        width: 26px;
+        height: 26px;
       }
 
       .am-list-body {
         position: static;
+
+        .am-list-item {
+          background-color: #e8e8e8; // 这个是整个content区域的背景
+        }
 
         .me {
           .am-list-content {
@@ -21,7 +70,17 @@
           }
 
           .am-list-extra {
-            flex-basis: 10%;
+            flex-basis: 14%; // 发送方信息与头像之间的距离
+          }
+        }
+
+        .am-list-line {
+          align-items: initial;
+          overflow: visible;
+
+          .am-list-content {
+            font-size: 14px;
+            overflow: visible;
           }
         }
       }
@@ -29,9 +88,33 @@
   }
 
   .footer {
-    position: absolute;
-    bottom: 2px;
-    height: 44px;
+    min-height: 44px;
     width: 100%;
+
+    .am-grid-icon {
+      display: none;
+    }
+
+    .am-grid-text {
+      margin-top: 0;
+    }
+
+    .am-list-body {
+      .am-list-item {
+        background-color: #f8f8f8;
+      }
+
+      .am-input-control {
+        background-color: #ffffff;
+        border: #e8e8e8 solid 1px;
+        border-radius: 2px;
+        padding-left: 6px;
+
+        input {
+          padding-left: 2px;
+          font-size: 14px;
+        }
+      }
+    }
   }
 }
