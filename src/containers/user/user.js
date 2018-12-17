@@ -53,7 +53,7 @@ export default class User extends Component {
               />
               <List renderHeader={() => '简介'}>
                 <Item multipleLine>
-                  <div>{userInfo.title}</div>
+                  <div>{(userInfo.type === 'boss' ? '招聘：' : '') + userInfo.title}</div>
                 </Item>
                 <WingBlank>
                   {

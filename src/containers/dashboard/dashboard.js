@@ -9,11 +9,8 @@ import { getMsgList } from '../../apis/chat';
 import Boss from '../boss/boss';
 import Worker from '../worker/worker';
 import User from '../user/user';
+import Msg from '../msg/msg';
 import './dashboard.scss';
-
-function Msg() {
-  return <div>msg</div>
-}
 
 const mapstateToProps = state => ({
   userInfo: state.userInfo,

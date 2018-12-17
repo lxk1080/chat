@@ -33,4 +33,3 @@ export const chatUser = (state = initChatUser, action) => {
       return state;
   }
 };
-
