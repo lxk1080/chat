@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import { getAvatars } from '../../apis/file';
 
 import { List, Grid } from 'antd-mobile';
 import './avatarSelector.scss';
@@ -28,10 +29,10 @@ export default class AvatarSelector extends Component {
   }
 
   getAllImage() {
-    axios.get('/file/image').then(res => {
-      if (res.status === 200 && res.data.code === 0) {
+    getAvatars().then(res => {
+      if (res.code === 0) {
         this.setState({
-          imgLists: res.data.data,
+          imgLists: res.data,
         })
       }
     })

@@ -51,9 +51,9 @@ export default class User extends Component {
                 title={userInfo.username}
                 message={userInfo.type === 'boss' ? userInfo.company : null}
               />
-              <List renderHeader={() => '简介'}>
+              <List renderHeader={() => '简介（个人信息）'}>
                 <Item multipleLine>
-                  <div>{(userInfo.type === 'boss' ? '招聘：' : '') + userInfo.title}</div>
+                  <div>{(userInfo.type === 'boss' ? '招聘职位：' : '') + userInfo.title}</div>
                 </Item>
                 <WingBlank>
                   {

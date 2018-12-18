@@ -3,6 +3,22 @@ const Router = express.Router();
 const model = require('./model');
 const Chat = model.getModel('chat');
 
+Router.get('/clear', function(req, res) {
+  Chat.remove({}, function() {});
+  res.end('clear success!');
+});
+
+Router.get('/list', function(req, res) {
+  Chat.find({}, function(err, data) {
+    if (!err) {
+      return res.json({
+        code: 0,
+        data,
+      })
+    }
+  })
+});
+
 Router.get('/getMsgList', function(req, res) {
   const user = req.cookies.userId;
 

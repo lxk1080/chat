@@ -41,7 +41,7 @@ export const register = data => {
   return dispatch => {
     userApi.register(username, password, type).then(res => {
       if (res.code === 0) {
-        dispatch(updateUserInfo({username, type}));
+        dispatch(updateUserInfo(res.data));
         dispatch(setRegisterErrorMsg(''));
       } else {
         dispatch(setRegisterErrorMsg(res.msg));

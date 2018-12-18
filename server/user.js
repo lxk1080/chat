@@ -6,6 +6,18 @@ const Router = express.Router();
 const user = model.getModel('user');
 const _filter = {password: 0, __v: 0};
 
+function argsFilter(doc) {
+  const newDoc = {};
+
+  for (const [key, value] of Object.entries(doc)) {
+    if (!Object.keys(_filter).includes(key)) {
+      newDoc[key] = value;
+    }
+  }
+
+  return newDoc;
+}
+
 // 清理数据库
 Router.get('/clear', function(req, res) {
   user.remove({username: req.query.username}, function() {});
@@ -64,7 +76,15 @@ Router.post('/register', function (req, res) {
       }
 
       res.cookie('userId', data._id);
-      return res.json({code: 0});
+
+      // 注意这里 data 和 data._doc 打印出来的值是一样的，都是一个对象。
+      // 根据测试推测：data 是一个类，之所以打印出来的值和 data._doc 相同，
+      // 是因为调用了 getter 方法，返回了 _doc 的值，_doc 才是真正的对象。
+      // 所以，遍历对象，要使用 data._doc 这个值
+      // console.log(111, data);
+      // console.log(222, data._doc);
+
+      return res.json({code: 0, data: argsFilter(data._doc)});
     })
   })
 });
@@ -72,15 +92,15 @@ Router.post('/register', function (req, res) {
 Router.post('/update', function (req, res) {
   const { userId } = req.cookies;
   const body = req.body;
+
   if (!userId) {
     return res.json({code: 1}); // 到login页面
   }
+
   // 通过id找到这条数据后修改
   user.findByIdAndUpdate(userId, body, function(err, data) {
-    const result = Object.assign({}, {
-      username: data.username,
-      type: data.type,
-    }, body);
+    const result = Object.assign({}, argsFilter(data._doc), body);
+
     return res.json({
       data: result,
       code: 0,

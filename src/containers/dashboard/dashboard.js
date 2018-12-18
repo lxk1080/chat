@@ -12,12 +12,12 @@ import User from '../user/user';
 import Msg from '../msg/msg';
 import './dashboard.scss';
 
-const mapstateToProps = state => ({
+const mapStateToProps = state => ({
   userInfo: state.userInfo,
   chatMsg: state.chatMsg,
 });
 
-@connect(mapstateToProps)
+@connect(mapStateToProps)
 export default class Dashboard extends Component {
   constructor(props) {
     super(props);

@@ -19,8 +19,9 @@ io.on('connection', function(socket) {
     const { from, to, content } = data;
 
     const chatid = [from, to].sort().join('_'); // 每一个聊天室有一个唯一的id标识
+    const create_time = new Date().getTime();
 
-    Chat.create({ chatid, from, to, content }, function (err, data) {
+    Chat.create({ chatid, from, to, content, create_time }, function (err, data) {
       if (!err) {
         io.emit('reply', data);
       }
