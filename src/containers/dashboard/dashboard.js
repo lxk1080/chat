@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import { NavBar, TabBar } from 'antd-mobile';
 import { socket } from '../../common/js/constants';
 import { setMsgList, receiveMsg } from '../../actions/chat';
@@ -17,6 +17,7 @@ const mapStateToProps = state => ({
   chatMsg: state.chatMsg,
 });
 
+@withRouter
 @connect(mapStateToProps)
 export default class Dashboard extends Component {
   constructor(props) {
@@ -84,6 +85,12 @@ export default class Dashboard extends Component {
     const { location, userInfo, chatMsg } = this.props;
 
     const tabList = this.getTabList(userInfo);
+
+    if (!tabList.find(item => item.path === location.pathname)) {
+      this.props.history.push('/error');
+      return null;
+    }
+
     const title = tabList.find(item => item.path === location.pathname).title;
 
     return (
