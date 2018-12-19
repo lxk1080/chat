@@ -1,6 +1,6 @@
 const express = require('express');
-const utils = require('./utils');
-const model = require('./model');
+const utils = require('../public/js/utils');
+const model = require('../public/js/model');
 const Router = express.Router();
 
 const user = model.getModel('user');

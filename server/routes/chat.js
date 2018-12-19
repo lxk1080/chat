@@ -1,6 +1,6 @@
 const express = require('express');
 const Router = express.Router();
-const model = require('./model');
+const model = require('../public/js/model');
 const chat = model.getModel('chat');
 
 Router.get('/clear', function(req, res) {

@@ -1,11 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const userRouter = require('./user');
-const fileRouter = require('./file');
-const chatRouter = require('./chat');
+const userRouter = require('./routes/user');
+const fileRouter = require('./routes/file');
+const chatRouter = require('./routes/chat');
 
-const model = require('./model');
+const model = require('./public/js/model');
 const Chat = model.getModel('chat');
 
 const app = express();

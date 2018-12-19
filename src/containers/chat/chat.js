@@ -32,22 +32,38 @@ export default class Chat extends Component {
     this.setScroll = this.setScroll.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
     this.toggleEmojiShow = this.toggleEmojiShow.bind(this);
+    this.updateMsgRead = this.updateMsgRead.bind(this);
   }
 
   componentDidMount() {
+    // 聊天信息滚动到最底端
     this.setScroll();
+    // 解决组件bug
     this.fixCarousel();
-  }
-
-  componentWillUnmount() {
-    const { match, dispatch } = this.props;
-    const otherSideId = match.params.id;
-
-    dispatch(setMsgRead({ otherSideId }));
+    // 设置信息已读
+    this.updateMsgRead();
   }
 
   componentDidUpdate() {
     this.setScroll();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const nextList = nextProps.chatMsg.msgList;
+    const curList = this.props.chatMsg.msgList;
+    const otherSideId = nextProps.match.params.id;
+
+    // 当在聊天页面收到对方新的信息时，设置为已读
+    if (nextList.length !== curList.length && nextList[nextList.length - 1].from === otherSideId) {
+      this.updateMsgRead(nextProps);
+    }
+  }
+
+  updateMsgRead(props = this.props) {
+    const { match, dispatch } = props;
+    const otherSideId = match.params.id;
+
+    dispatch(setMsgRead({ otherSideId }));
   }
 
   setScroll() {
