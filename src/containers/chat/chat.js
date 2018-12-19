@@ -4,8 +4,7 @@ import { List, InputItem, NavBar, Icon, Grid } from 'antd-mobile';
 import { socket } from '../../common/js/constants';
 import { getChatId } from '../../common/js/utils';
 import emoji from '../../common/js/emoji';
-// import { setMsgList, receiveMsg } from '../../actions/chat';
-// import { getMsgList } from '../../apis/chat';
+import { setMsgRead } from '../../actions/chat';
 import './chat.scss';
 
 const mapstateToProps = state => ({
@@ -36,18 +35,15 @@ export default class Chat extends Component {
   }
 
   componentDidMount() {
-    /*getMsgList().then(res => {
-      if (res.code === 0) {
-        this.props.dispatch(setMsgList(res.data));
-      }
-    });
-
-    socket.on('reply', (data) => {
-      this.props.dispatch(receiveMsg(data));
-    })*/
-
     this.setScroll();
     this.fixCarousel();
+  }
+
+  componentWillUnmount() {
+    const { match, dispatch } = this.props;
+    const otherSideId = match.params.id;
+
+    dispatch(setMsgRead({ otherSideId }));
   }
 
   componentDidUpdate() {

@@ -30,7 +30,9 @@ export default class Msg extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.getChatRooms(nextProps);
+    if (nextProps.chatMsg !== this.props.chatMsg) {
+      this.getChatRooms(nextProps);
+    }
   }
 
   getChatRooms(props = this.props) {
@@ -42,9 +44,6 @@ export default class Msg extends Component {
       msgGroup[item.chatid] = msgGroup[item.chatid] || [];
       msgGroup[item.chatid].push(item);
     })
-
-    // ...
-    console.log('msgGroup', msgGroup);
 
     let chatRooms = Object.values(msgGroup);
 
