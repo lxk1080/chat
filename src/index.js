@@ -15,7 +15,7 @@ import Bossinfo from './containers/bossinfo/bossinfo';
 import Workerinfo from './containers/workerinfo/workerinfo';
 import Dashboard from './containers/dashboard/dashboard';
 import Chat from './containers/chat/chat';
-import ErrorPage from './components/error/error';
+import Error from './components/error/error';
 
 import reducers from './reducers';
 
@@ -36,9 +36,9 @@ ReactDom.render(
           <Route path='/register' component={Register}/>
           <Route path='/bossinfo' component={Bossinfo}/>
           <Route path='/workerinfo' component={Workerinfo}/>
+          <Route path='/dashboard' component={Dashboard} />
           <Route path='/chat/:id' component={Chat} />
-          <Route path='/error' component={ErrorPage} />
-          <Route component={Dashboard} />
+          <Route component={Error} />
         </Switch>
       </div>
     </BrowserRouter>

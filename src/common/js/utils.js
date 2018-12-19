@@ -1,7 +1,7 @@
 export const getRedirectPath = ({type, avatar}) => {
-  let url = type === 'boss' ? '/boss' : '/worker';
+  let url = type === 'boss' ? '/dashboard/boss' : '/dashboard/worker';
   if (!avatar) {
-    url += 'info';
+    url = url.replace('/dashboard', '') + 'info';
   }
   return url;
 };

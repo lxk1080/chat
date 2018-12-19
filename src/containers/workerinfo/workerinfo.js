@@ -40,7 +40,7 @@ export default class Bossinfo extends Component {
   save() {
     this.props.dispatch(save(this.state));
     // 这里的逻辑是无论如何都会跳转到boss页面，因为头像用默认头像了，其他的信息可以后面再修改
-    this.props.history.push('/worker');
+    this.props.history.push('/dashboard/worker');
   }
 
   render() {

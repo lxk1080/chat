@@ -3,7 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const Router = express.Router();
 
-const image = path.join(__dirname, '../src/common/image');
+const image = path.join(__dirname, '../../src/common/image');
 
 Router.get('/image', function(req, res) {
   fs.readdir(image, function (err, data) {
@@ -13,6 +13,8 @@ Router.get('/image', function(req, res) {
         code: 0,
         data: lists,
       })
+    } else {
+      console.log(123)
     }
   });
 });

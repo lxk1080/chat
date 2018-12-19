@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { NavBar, TabBar } from 'antd-mobile';
 import { socket } from '../../common/js/constants';
 import { setMsgList, receiveMsg } from '../../actions/chat';
@@ -17,7 +17,6 @@ const mapStateToProps = state => ({
   chatMsg: state.chatMsg,
 });
 
-@withRouter
 @connect(mapStateToProps)
 export default class Dashboard extends Component {
   constructor(props) {
@@ -47,7 +46,7 @@ export default class Dashboard extends Component {
   getTabList(userInfo) {
     const navList = [
       {
-        path: '/boss',
+        path: '/dashboard/boss',
         component: Boss,
         text: 'worker',
         title: 'worker列表',
@@ -55,7 +54,7 @@ export default class Dashboard extends Component {
         hide: userInfo.type === 'worker'
       },
       {
-        path: '/worker',
+        path: '/dashboard/worker',
         component: Worker,
         text: 'boss',
         title: 'boss列表',
@@ -63,14 +62,14 @@ export default class Dashboard extends Component {
         hide: userInfo.type === 'boss'
       },
       {
-        path: '/msg',
+        path: '/dashboard/msg',
         component: Msg,
         text: '消息',
         title: '消息列表',
         icon: 'msg',
       },
       {
-        path: '/user',
+        path: '/dashboard/user',
         component: User,
         text: '我的',
         title: '个人中心',
@@ -86,6 +85,7 @@ export default class Dashboard extends Component {
 
     const tabList = this.getTabList(userInfo);
 
+    // 当输入无效的url时，返回null，等待app组件内判断是否登录后自动跳转
     if (!tabList.find(item => item.path === location.pathname)) {
       this.props.history.push('/error');
       return null;

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import './error.scss';
 
-export default class ErrorPage extends Component {
+export default class Error extends Component {
   render() {
     return (
-      <div className="error-page">
-        未知页面，404
+      <div className="error">
+        无效的页面，正在跳转中...
       </div>
     )
   }
