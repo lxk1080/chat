@@ -26,7 +26,8 @@ export default class Dashboard extends Component {
   }
 
   componentDidMount() {
-    if (!this.props.chatMsg.msgList.length) {
+    // 这里退出登录时并未清理chatMsg，导致其他用户登录时还是上个用户的chatMsg，所以先注释掉
+    // if (!this.props.chatMsg.msgList.length) {
       getMsgList().then(res => {
         if (res.code === 0) {
           this.props.dispatch(setMsgList({data: res.data, userId: this.props.userInfo._id}));
@@ -40,7 +41,7 @@ export default class Dashboard extends Component {
       socket.on('reply', (data) => {
         this.props.dispatch(receiveMsg({data, userId: this.props.userInfo._id}));
       })
-    }
+    // }
   }
 
   getTabList(userInfo) {
