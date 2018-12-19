@@ -112,7 +112,7 @@ export default class Dashboard extends Component {
             {
               tabList.map(item => (
                 <TabBar.Item
-                  badge={item.path === '/msg' ? chatMsg.unread: 0}
+                  badge={item.path === '/dashboard/msg' ? chatMsg.unread: 0}
                   key={item.path}
                   title={item.text}
                   icon={{uri: require(`../../common/icon/${item.icon}.png`)}}
