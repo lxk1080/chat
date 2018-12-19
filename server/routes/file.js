@@ -13,8 +13,6 @@ Router.get('/image', function(req, res) {
         code: 0,
         data: lists,
       })
-    } else {
-      console.log(123)
     }
   });
 });
