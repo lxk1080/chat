@@ -26,19 +26,21 @@ export default class Dashboard extends Component {
   }
 
   componentDidMount() {
-    getMsgList().then(res => {
-      if (res.code === 0) {
-        this.props.dispatch(setMsgList({data: res.data, userId: this.props.userInfo._id}));
-      }
-    });
+    if (!this.props.chatMsg.msgList.length) {
+      getMsgList().then(res => {
+        if (res.code === 0) {
+          this.props.dispatch(setMsgList({data: res.data, userId: this.props.userInfo._id}));
+        }
+      });
 
-    // 这里先解绑上次绑定的，否则会多次绑定reply事件，执行多次回调函数
-    // 至于为什么不在组件销毁时解绑，是因为此组件销毁时，仍然需要监听这个事件
-    socket.off('reply');
+      // 这里先解绑上次绑定的，否则会多次绑定reply事件，执行多次回调函数
+      // 至于为什么不在组件销毁时解绑，是因为此组件销毁时，仍然需要监听这个事件
+      socket.off('reply');
 
-    socket.on('reply', (data) => {
-      this.props.dispatch(receiveMsg({data, userId: this.props.userInfo._id}));
-    })
+      socket.on('reply', (data) => {
+        this.props.dispatch(receiveMsg({data, userId: this.props.userInfo._id}));
+      })
+    }
   }
 
   getTabList(userInfo) {
