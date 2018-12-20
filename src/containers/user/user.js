@@ -21,7 +21,7 @@ export default class User extends Component {
   logout() {
     const { dispatch, history } = this.props;
 
-    Modal.alert('注销', '确认退出登录吗？', [
+    Modal.alert('退隐', '确认退出瓦洛兰大陆吗？', [
       {
         text: '取消',
         onPress: () => console.log('cancel'),
@@ -52,27 +52,27 @@ export default class User extends Component {
                 title={userInfo.username}
                 message={userInfo.type === 'boss' ? userInfo.company : null}
               />
-              <List renderHeader={() => '简介（个人信息）'}>
+              <List renderHeader={() => '简介（个人档案）'}>
                 <Item multipleLine>
                   <div className="desc">{(userInfo.type === 'boss' ? '需要：' : '职业：') + userInfo.title}</div>
                 </Item>
                 {
                   userInfo.money &&
                   <Item>
-                    <Brief>薪资待遇：{userInfo.money}</Brief>
+                    <Brief>雇佣价格：{userInfo.money}</Brief>
                   </Item>
                 }
                 {
                   userInfo.desc &&
                   <Item>
-                    <Brief>技能{userInfo.type === 'boss' ? '要求：' : '掌握：'}</Brief>
+                    <Brief>技能{userInfo.type === 'boss' ? '要求：' : '描述：'}</Brief>
                     { userInfo.desc.split('\n').map((value, index) => <Brief key={index}>{value}</Brief>) }
                   </Item>
                 }
               </List>
               <WhiteSpace />
               <List>
-                <Item onClick={this.logout}>退出登录</Item>
+                <Item onClick={this.logout}>退出瓦洛兰大陆</Item>
               </List>
             </Fragment>
           ) : <Redirect to='/login' />

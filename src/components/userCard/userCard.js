@@ -47,8 +47,8 @@ export default class Boss extends Component {
                       {
                         type === 'boss' &&
                         <Fragment>
-                          <div style={style}>公司名称：{user.company}</div>
-                          <div style={style}>输出薪资：{user.money}</div>
+                          <div style={style}>出生地点：{user.company}</div>
+                          <div style={style}>雇佣价格：{user.money}</div>
                           <div style={style}>技能要求：</div>
                         </Fragment>
                       }

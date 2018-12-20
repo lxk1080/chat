@@ -48,16 +48,16 @@ export default class Dashboard extends Component {
       {
         path: '/dashboard/boss',
         component: Boss,
-        text: 'worker',
-        title: 'worker列表',
+        text: '英雄',
+        title: '英雄列表',
         icon: 'boss',
         hide: userInfo.type === 'worker'
       },
       {
         path: '/dashboard/worker',
         component: Worker,
-        text: 'boss',
-        title: 'boss列表',
+        text: '召唤师',
+        title: '召唤师列表',
         icon: 'worker',
         hide: userInfo.type === 'boss'
       },

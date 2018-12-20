@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import AvatarSelector from '../../components/avatarSelector/avatarSelector';
@@ -52,12 +52,12 @@ export default class Bossinfo extends Component {
 
     return (
       <div className="bossinfo-container">
-        <NavBar className="title">Worker信息完善</NavBar>
+        <NavBar className="title">英雄信息完善</NavBar>
         <div className="avatarSelector-wrapper">
           <AvatarSelector selectAvatar={this.selectAvatar} avatar={avatar} />
         </div>
         <div className="text-wrapper">
-          <InputItem onChange={val => this.onChange('title', val)}>应聘职位</InputItem>
+          <InputItem onChange={val => this.onChange('title', val)}>主要职业</InputItem>
           <TextareaItem
             title="技能描述"
             rows={3}

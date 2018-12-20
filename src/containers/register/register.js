@@ -59,13 +59,13 @@ export default class Register extends Component {
               checked={this.state.type === 'worker'}
               onChange={() => this.handleChange('type', 'worker')}
             >
-              求职者
+              英雄
             </RadioItem>
             <RadioItem
               checked={this.state.type === 'boss'}
               onChange={() => this.handleChange('type', 'boss')}
             >
-              老板
+              召唤师
             </RadioItem>
           </List>
           <WhiteSpace />

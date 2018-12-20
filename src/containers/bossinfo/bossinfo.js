@@ -55,14 +55,14 @@ export default class Bossinfo extends Component {
 
     return (
       <div className="bossinfo-container">
-        <NavBar className="title">Boss信息完善</NavBar>
+        <NavBar className="title">召唤师信息完善</NavBar>
         <div className="avatarSelector-wrapper">
           <AvatarSelector selectAvatar={this.selectAvatar} avatar={avatar} />
         </div>
         <div className="text-wrapper">
-          <InputItem onChange={val => this.onChange('title', val)}>招聘职位</InputItem>
-          <InputItem onChange={val => this.onChange('company', val)}>公司名称</InputItem>
-          <InputItem onChange={val => this.onChange('money', val)}>职位薪资</InputItem>
+          <InputItem onChange={val => this.onChange('title', val)}>征战位置</InputItem>
+          <InputItem onChange={val => this.onChange('company', val)}>出生地点</InputItem>
+          <InputItem onChange={val => this.onChange('money', val)}>雇佣价格</InputItem>
           <TextareaItem
             title="技能要求"
             rows={3}
