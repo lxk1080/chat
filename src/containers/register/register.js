@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
-import { List, InputItem, WingBlank, WhiteSpace, Radio, Button } from 'antd-mobile';
+import { List, InputItem, WingBlank, WhiteSpace, Radio, Button, Flex } from 'antd-mobile';
 
 import { register } from '../../actions/user';
 import * as utils from '../../common/js/utils';
@@ -69,7 +69,14 @@ export default class Register extends Component {
             </RadioItem>
           </List>
           <WhiteSpace />
-          <Button type="primary" onClick={this.handleReister}>注册</Button>
+          <Flex>
+            <Flex.Item style={{ flex: 1 }}>
+              <Button onClick={() => this.props.history.push('/login')}>去登录</Button>
+            </Flex.Item>
+            <Flex.Item style={{ flex: 2 }}>
+              <Button type="primary" onClick={this.handleReister}>注册</Button>
+            </Flex.Item>
+          </Flex>
           <div className="error-msg">
             {this.props.msg.registerErrorMsg}
           </div>
