@@ -1,0 +1,17 @@
+.user-wrapper {
+  .desc {
+    color: #666666;
+  }
+
+  .am-list-item {
+    padding-left: 0;
+
+    .am-list-line {
+      padding-left: 15px;
+
+      .am-list-brief {
+        white-space: initial;
+      }
+    }
+  }
+}

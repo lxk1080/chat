@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { WingBlank, WhiteSpace, Card } from 'antd-mobile';
+import './userCard.scss';
 
 @withRouter
 export default class Boss extends Component {

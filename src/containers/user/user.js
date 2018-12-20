@@ -4,6 +4,7 @@ import { Result, List, WhiteSpace, WingBlank, Modal } from 'antd-mobile';
 import Cookies from 'js-cookie';
 import { logout } from '../../actions/user';
 import { Redirect } from 'react-router-dom';
+import './user.scss';
 
 const mapStateToProps = state => ({
   userInfo: state.userInfo,
@@ -53,23 +54,21 @@ export default class User extends Component {
               />
               <List renderHeader={() => '简介（个人信息）'}>
                 <Item multipleLine>
-                  <div>{(userInfo.type === 'boss' ? '招聘职位：' : '') + userInfo.title}</div>
+                  <div className="desc">{(userInfo.type === 'boss' ? '需要：' : '职业：') + userInfo.title}</div>
                 </Item>
-                <WingBlank>
-                  {
-                    userInfo.money &&
-                    <Item>
-                      <Brief>薪资待遇：{userInfo.money}</Brief>
-                    </Item>
-                  }
-                  {
-                    userInfo.desc &&
-                    <Item>
-                      <Brief>技能{userInfo.type === 'boss' ? '要求：' : '掌握：'}</Brief>
-                      { userInfo.desc.split('\n').map((value, index) => <Brief key={index}>{value}</Brief>) }
-                    </Item>
-                  }
-                </WingBlank>
+                {
+                  userInfo.money &&
+                  <Item>
+                    <Brief>薪资待遇：{userInfo.money}</Brief>
+                  </Item>
+                }
+                {
+                  userInfo.desc &&
+                  <Item>
+                    <Brief>技能{userInfo.type === 'boss' ? '要求：' : '掌握：'}</Brief>
+                    { userInfo.desc.split('\n').map((value, index) => <Brief key={index}>{value}</Brief>) }
+                  </Item>
+                }
               </List>
               <WhiteSpace />
               <List>

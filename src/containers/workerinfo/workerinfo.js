@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import AvatarSelector from '../../components/avatarSelector/avatarSelector';
-import { NavBar, InputItem, TextareaItem, WingBlank, Button } from 'antd-mobile';
+import { NavBar, InputItem, TextareaItem, WingBlank, Button, Toast } from 'antd-mobile';
 import { save } from '../../actions/user';
 import '../bossinfo/bossinfo.scss';
 
@@ -38,8 +38,12 @@ export default class Bossinfo extends Component {
   }
 
   save() {
+    if (Object.values(this.state).some(v => !v)) {
+      Toast.info('很多空白没填呢，亲！', 2);
+      return;
+    }
+
     this.props.dispatch(save(this.state));
-    // 这里的逻辑是无论如何都会跳转到boss页面，因为头像用默认头像了，其他的信息可以后面再修改
     this.props.history.push('/dashboard/worker');
   }
 

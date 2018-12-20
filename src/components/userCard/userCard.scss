@@ -1,0 +1,11 @@
+.usercard-wrapper {
+  img {
+    border-radius: 3px;
+  }
+
+  .am-card-header-extra {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
