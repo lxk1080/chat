@@ -1,7 +1,8 @@
 // user
 export const UPDATE_USER_INFO = 'UPDATE_USER_INFO';
-export const CHANGE_USER_LIST = 'CHANGE_USER_LIST';
-export const LOGOUT = 'LOGOUT';
+export const RESET_USER_INFO = 'RESET_USER_INFO';
+export const UPDATE_OTHER_SIDE_LIST = 'UPDATE_OTHER_SIDE_LIST';
+export const RESET_OTHER_SIDE_LIST = 'RESET_OTHER_SIDE_LIST';
 
 // common
 export const SET_REGISTER_ERROR_MSG = 'REGISTER_ERROR_MSG';
@@ -11,3 +12,4 @@ export const SET_LOGIN_ERROR_MSG = 'LOGIN_ERROR_MSG';
 export const SET_MSG_LIST = 'SET_MSG_LIST';
 export const RECEIVE_MSG = 'RECEIVE_MSG';
 export const SET_MSG_READ_STATE = 'SET_MSG_READ_STATE';
+export const RESET_CHAT_MSG = 'RESET_CHAT_MSG';

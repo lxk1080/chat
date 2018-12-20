@@ -30,6 +30,9 @@ export const chatMsg = (state = initChatMsg, action) => {
         unread: state.unread - data.num,
       };
 
+    case actionTypes.RESET_CHAT_MSG:
+      return { ...initChatMsg };
+
     default:
       return state;
   }

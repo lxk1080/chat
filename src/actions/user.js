@@ -1,12 +1,15 @@
 import * as actionTypes from './actionTypes';
 import * as userApi from '../apis/user';
 import { setRegisterErrorMsg, setLoginErrorMsg } from './common';
+import { resetChatMsg } from './chat';
 
 export const updateUserInfo = data => ({type: actionTypes.UPDATE_USER_INFO, payload: data});
 
-export const changeUserList = data => ({type: actionTypes.CHANGE_USER_LIST, payload: data});
+export const resetUserInfo = data => ({type: actionTypes.RESET_USER_INFO, payload: data});
 
-export const logout = data => ({type: actionTypes.LOGOUT, payload: data});
+export const updateOtherSideList = data => ({type: actionTypes.UPDATE_OTHER_SIDE_LIST, payload: data});
+
+export const resetOtherSideList = data => ({type: actionTypes.RESET_OTHER_SIDE_LIST, payload: data});
 
 export const login = data => {
   const { username, password } = data;
@@ -58,4 +61,10 @@ export const save = data => dispatch => {
       this.props.history.push('/login');
     }
   })
+};
+
+export const logout = () => (dispatch) => {
+  dispatch(resetUserInfo());
+  dispatch(resetOtherSideList());
+  dispatch(resetChatMsg());
 };

@@ -16,7 +16,7 @@ export const userInfo = (state = initUserInfo, action) => {
     case actionTypes.UPDATE_USER_INFO:
       return {...state, ...action.payload, isAuth: true};
 
-    case actionTypes.LOGOUT:
+    case actionTypes.RESET_USER_INFO:
       return {...initUserInfo};
 
     default:
@@ -26,8 +26,11 @@ export const userInfo = (state = initUserInfo, action) => {
 
 export const chatUser = (state = initChatUser, action) => {
   switch (action.type) {
-    case actionTypes.CHANGE_USER_LIST:
+    case actionTypes.UPDATE_OTHER_SIDE_LIST:
       return {...state, userList: action.payload};
+
+    case actionTypes.RESET_OTHER_SIDE_LIST:
+      return {...initChatUser};
 
     default:
       return state;

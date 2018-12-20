@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { getUserList } from '../../apis/user';
-import { changeUserList } from '../../actions/user';
+import { updateOtherSideList } from '../../actions/user';
 import UserCard from '../../components/userCard/userCard';
 
 const mapStateToProps = state => ({
@@ -17,7 +17,7 @@ export default class Boss extends Component {
   componentDidMount() {
     getUserList('boss').then(res => {
       if (res.code === 0) {
-        this.props.dispatch(changeUserList(res.data));
+        this.props.dispatch(updateOtherSideList(res.data));
       }
     })
   }
