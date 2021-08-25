@@ -1,4 +1,4 @@
-## chat
+# chat
 
 > 使用 React 和 Nodejs 搭建的简易聊天系统
 
